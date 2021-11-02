@@ -177,18 +177,15 @@ DEV_USERS.add(OWNER_ID)
 DEV_USERS.add(1669178360)
 DEV_USERS.add(1544286112)
 
+if not SPAMWATCH_API:
+    sw = None
+    LOGGER.warning("SpamWatch API key missing! recheck your config.")
 else:
     try:
         sw = spamwatch.Client(SPAMWATCH_API)
     except:
         sw = None
-        LOGGER.warning("[SerenaRobot Error]: Can't connect to SpamWatch!")
-
-
-# Credits Logger
-print("[SerenaRobot] Serena Is Starting. | A Pigasus Project Network | Licensed Under GPLv3.")
-print("[SerenaRobot] Successfully Connected With A Pigasus Network")
-print("[SerenaRobot] Project Maintained By: github.com/AASFCYBERKING (t.me/AASFCYBERKING)")
+        LOGGER.warning("Can't connect to SpamWatch!")
 
 
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
