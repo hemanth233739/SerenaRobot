@@ -658,7 +658,7 @@ def main():
             dispatcher.bot.sendMessage(f"@{SUPPORT_CHAT}", "I Aᴍ Aʟɪᴠᴇ 💖")
         except Unauthorized:
             LOGGER.warning(
-                "Serena Isnt Able To Send Message To Your Support_Chat, Go And Check Once!"
+                "Serena Can't Able To Send Message To PigasusSupport, Go And Check It!"
             )
         except BadRequest as e:
             LOGGER.warning(e.message)
