@@ -1,4 +1,4 @@
-from SerenaRobot import db
+from SerenaRobot.mongo import db
 from typing import Dict, List, Union
 
 
