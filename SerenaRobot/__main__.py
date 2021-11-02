@@ -93,7 +93,7 @@ buttons = [
                             url=f"t.me/SerenaYvonneRobot?startgroup=true")
                     ],
                    [
-                       InlineKeyboardButton(text="[❦ Help ❦]", callback_data="help_back"),
+                       InlineKeyboardButton(text="[❦ ʜᴇʟᴘ 🔥", callback_data="help_back"),
                        InlineKeyboardButton(text="[❦ Assistant ❦]", url="https://t.me/SerenaXHelper"),
                        InlineKeyboardButton(text="[❦ Inline ❦]", switch_inline_query_current_chat=""),
                      ],
