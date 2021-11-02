@@ -26,6 +26,7 @@ from SerenaRobot import (
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
 from SerenaRobot.modules import ALL_MODULES
+from SerenaRobot.modules.helper_funcs.alternate import typing_action
 from SerenaRobot.modules.helper_funcs.chat_status import is_user_admin
 from SerenaRobot.modules.helper_funcs.misc import paginate_modules
 import SerenaRobot.modules.sql.users_sql as sql
