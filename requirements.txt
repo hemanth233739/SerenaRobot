@@ -75,4 +75,7 @@ better_profanity
 nudepy
 motor
 cloudscraper
-
+#ImageEditor
+glitch_this
+NumPy
+opencv-python-headless
