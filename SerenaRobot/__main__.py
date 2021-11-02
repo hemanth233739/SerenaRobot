@@ -1,8 +1,10 @@
 import importlib
 import time
 import re
+import SerenaRobot.modules.sql.users_sql as sql
 from sys import argv
 from typing import Optional
+from pyrogram import filters, idle
 
 from SerenaRobot import (
     ALLOW_EXCL,
@@ -26,10 +28,10 @@ from SerenaRobot import (
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
 from SerenaRobot.modules import ALL_MODULES
-from SerenaRobot.modules.helper_funcs.alternate import typing_action
 from SerenaRobot.modules.helper_funcs.chat_status import is_user_admin
 from SerenaRobot.modules.helper_funcs.misc import paginate_modules
-import SerenaRobot.modules.sql.users_sql as sql
+from SerenaRobot.modules.helper_funcs.alternate import typing_action
+from SerenaRobot.modules.sudoers import bot_sys_stats
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.error import (
     BadRequest,
@@ -81,7 +83,7 @@ SERENA_IMG = "https://telegra.ph/file/8b6f8f2bb4ff3912634c7.jpg"
 PM_START_TEXT = """
 ────「 [{}](https://telegra.ph/file/589306be78e284fc0a5e6.jpg) 」────
 *Hola! {},*
-*I am an Pokégirl themed advance group management bot with a lot of New And Powerful Features.*
+*I am a Pokégirl themed advance group management bot with a lot of New And Powerful Features.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 • *Uptime:* `{}`
 • `{}` *users, across* `{}` *chats.*
@@ -120,6 +122,7 @@ HELP_STRINGS = """
    ❦ in PM: will send you your settings for all supported modules.
    ❦ in a group: will redirect you to pm, with all that chat's settings[.](https://telegra.ph/file/a4f4e81304933c9191bc0.jpg)
 """
+
 
 DONATE_STRING = """❦ I'm Free for Everyone ❦"""
 
@@ -326,7 +329,7 @@ def help_button(update, context):
         if mod_match:
             module = mod_match.group(1)
             text = (
-                "Here is the help for the *{}* module:\n".format(
+                "「 HELP FOR *{}* 」:\n".format(
                     HELPABLE[module].__mod_name__
                 )
                 + HELPABLE[module].__help__
@@ -376,7 +379,6 @@ def help_button(update, context):
     except BadRequest:
         pass
 
-
 @typing_action
 def get_help(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
@@ -403,7 +405,7 @@ def get_help(update, context):
     elif len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
         module = args[1].lower()
         text = (
-            "Here is the available help for the *{}* module:\n".format(
+            "「 HELP FOR *{}* 」:\n".format(
                 HELPABLE[module].__mod_name__
             )
             + HELPABLE[module].__help__
@@ -587,7 +589,7 @@ def donate(update: Update, context: CallbackContext):
             DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
         )
 
-        if OWNER_ID != 1947924017 and DONATION_LINK:
+        if OWNER_ID != 2022280326 and DONATION_LINK:
             update.effective_message.reply_text(
                 "You can also donate to the person currently running me "
                 "[here]({})".format(DONATION_LINK),
