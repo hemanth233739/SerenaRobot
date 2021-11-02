@@ -74,7 +74,7 @@ def get_readable_time(seconds: int) -> str:
 
     return ping_time
 
-HELP_IMG = "https://telegra.ph/file/460e308c71cde0d1599bf.jpg"
+HELP_IMG = "https://telegra.ph/file/a30bf80e23f2136b59103.jpg"
 HELP_MSG = "Click the button below to get help manu in your pm."
 SERENA_IMG = "https://telegra.ph/file/8b6f8f2bb4ff3912634c7.jpg"
 
@@ -96,7 +96,7 @@ buttons = [
                             url=f"t.me/SerenaYvonneRobot?startgroup=true")
                     ],
                    [
-                       InlineKeyboardButton(text="[❦ ʜᴇʟᴘ 🔥", callback_data="help_back"),
+                       InlineKeyboardButton(text="[❦ Help ❦]", callback_data="help_back"),
                        InlineKeyboardButton(text="[❦ Assistant ❦]", url="https://t.me/SerenaXHelper"),
                        InlineKeyboardButton(text="[❦ Inline ❦]", switch_inline_query_current_chat=""),
                      ],
