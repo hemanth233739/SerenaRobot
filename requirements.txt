@@ -5,6 +5,7 @@ lxml
 wget
 gtts
 faker
+PyDictionary==2.0.1
 beautifulsoup4
 requests==2.20.0
 redis==3.5.3
