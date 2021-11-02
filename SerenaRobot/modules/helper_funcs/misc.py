@@ -30,9 +30,8 @@ def split_message(msg: str) -> List[str]:
         else:
             result.append(small_msg)
             small_msg = line
-    else:
-        # Else statement at the end of the for loop, so append the leftover string.
-        result.append(small_msg)
+    # Else statement at the end of the for loop, so append the leftover string.
+    result.append(small_msg)
 
     return result
 
@@ -55,26 +54,12 @@ def paginate_modules(page_n: int, module_dict: Dict, prefix, chat=None) -> List:
 
     round_num = len(modules) / 3
     calc = len(modules) - round(round_num)
-    if calc == 1:
-        pairs.append((modules[-1], ))
-    elif calc == 2:
-        pairs.append((modules[-1], ))
-
-    max_num_pages = ceil(len(pairs) / 100)
-    modulo_page = page_n % max_num_pages
-
-    # can only have a certain amount of buttons side by side
-    if len(pairs) > 100:
-        pairs = pairs[modulo_page * 100:100 * (modulo_page + 1)] + [
-            (EqInlineKeyboardButton("⬅️", callback_data="{}_prev({})".format(prefix, modulo_page)),
-                EqInlineKeyboardButton("Back", callback_data="eren_back"),
-             EqInlineKeyboardButton("➡️", callback_data="{}_next({})".format(prefix, modulo_page)))]
-
+    if calc in [1, 2]:
+        pairs.append((modules[-1],))
     else:
-        pairs += [[EqInlineKeyboardButton("Back", callback_data="eren_back")]]
+        pairs += [[EqInlineKeyboardButton("[❦ Back ❦]",  callback_data="serena_back")]]
 
     return pairs
-
 
 def send_to_list(
     bot: Bot, send_to: list, message: str, markdown=False, html=False
@@ -105,14 +90,12 @@ def build_keyboard(buttons):
 
 
 def revert_buttons(buttons):
-    res = ""
-    for btn in buttons:
-        if btn.same_line:
-            res += "\n[{}](buttonurl://{}:same)".format(btn.name, btn.url)
-        else:
-            res += "\n[{}](buttonurl://{})".format(btn.name, btn.url)
-
-    return res
+    return "".join(
+        "\n[{}](buttonurl://{}:same)".format(btn.name, btn.url)
+        if btn.same_line
+        else "\n[{}](buttonurl://{})".format(btn.name, btn.url)
+        for btn in buttons
+    )
 
 
 def build_keyboard_parser(bot, chat_id, buttons):
