@@ -7,7 +7,6 @@ import spamwatch
 import telegram.ext as tg
 from pyrogram import Client, errors
 from telethon import TelegramClient
-from redis import StrictRedis
 
 StartTime = time.time()
 
@@ -178,28 +177,6 @@ DEV_USERS.add(OWNER_ID)
 DEV_USERS.add(1669178360)
 DEV_USERS.add(1544286112)
 
-REDIS = StrictRedis.from_url(REDIS_URL, decode_responses=True)
-
-try:
-
-    REDIS.ping()
-
-    LOGGER.info("[SerenaRobot]: Connecting To Redis Database")
-
-except BaseException:
-
-    raise Exception("[SerenaRobot Error]: Redis Database Is Not Alive, Please Check Again.")
-
-finally:
-
-   REDIS.ping()
-
-   LOGGER.info("[SerenaRobot]: Connection To The Redis Database Established Successfully!")
-    
-
-if not SPAMWATCH_API:
-    sw = None
-    LOGGER.warning("[SerenaRobot Error]: SpamWatch API key Is Missing! Recheck Your Config.")
 else:
     try:
         sw = spamwatch.Client(SPAMWATCH_API)
