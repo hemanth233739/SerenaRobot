@@ -2,7 +2,7 @@ import random
 
 from SerenaRobot import pbot
 from SerenaRobot.utils.errors import capture_err
-from SerenaRobot.sql.couples_sql import get_couple, save_couple
+from SerenaRobot.modules.sql.couples_sql import get_couple, save_couple
 from pyrogram import filters
 from datetime import datetime
 
