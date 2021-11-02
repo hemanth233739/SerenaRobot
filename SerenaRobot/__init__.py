@@ -5,6 +5,7 @@ import time
 import spamwatch
 
 import telegram.ext as tg
+from aiohttp import ClientSession
 from pyrogram import Client, errors
 from telethon import TelegramClient
 from Python_ARQ import ARQ
@@ -194,6 +195,7 @@ else:
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient("serena", API_ID, API_HASH)
 pbot = Client("SerenaRobot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
+aiohttpsession = ClientSession()
 arq = ARQ("https://thearq.tech", "YIECCC-NAJARO-OLLREW-SJSRIP-ARQ", aiohttpsession)
 dispatcher = updater.dispatcher
 
