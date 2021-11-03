@@ -686,7 +686,7 @@ def main():
     donate_handler = DisableAbleCommandHandler("donate", donate, run_async=True)
     migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats, run_async=True)
 
-    # dispatcher.add_handler(test_handler)
+    dispatcher.add_handler(test_handler)
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(help_handler)
     dispatcher.add_handler(data_callback_handler)
