@@ -236,19 +236,23 @@ def start(update: Update, context: CallbackContext):
                 timeout=60,
             )
     else:
-        update.effective_message.reply_video(
-            START_IMG, caption= "<code>Serena is Here For You❤\nI am Awake Since</code>: <code>{}</code>".format(
+        update.effective_message.reply_animation(
+            SERENA_IMG, caption= "<b>Serena Is Here For You 💖\nHaven't sleep since</b>: <code>{}</code>".format(
                 uptime
             ),
             parse_mode=ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup(
                 [
-                  [
-                  InlineKeyboardButton(text="Sᴜᴘᴘᴏʀᴛ", url="https://t.me/PigasusSupport")
-                  ],
-                  [
-                  InlineKeyboardButton(text="Sᴏᴜʀᴄᴇ", url="https://github.com/IzumiCypherX/EmiliaAnimeBot")
-                  ]
+                    [
+                        InlineKeyboardButton(
+                            text="🚑 Support",
+                            url=f"https://telegram.dog/{SUPPORT_CHAT}",
+                        ),
+                        InlineKeyboardButton(
+                            text="📢 Updates",
+                            url="https://telegram.dog/PigasusUpdates",
+                        ),
+                    ]
                 ]
             ),
         )
