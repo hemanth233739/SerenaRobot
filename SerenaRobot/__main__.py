@@ -539,47 +539,24 @@ def Source_about_callback(update, context):
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
             )
-@run_async
-def get_help(update: Update, context: CallbackContext):
+@typing_action
+def get_help(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     args = update.effective_message.text.split(None, 1)
 
     # ONLY send help in PM
     if chat.type != chat.PRIVATE:
-        if len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
-            module = args[1].lower()
-            update.effective_message.reply_text(
-                f"Contact me in PM to get help of {module.capitalize()}",
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton(
-                                text="Help",
-                                url="t.me/{}?start=ghelp_{}".format(
-                                    context.bot.username, module
-                                ),
-                            )
-                        ]
-                    ]
-                ),
-            )
-            return
-        update.effective_message.reply_text(
-            "Contact me in PM to get the list of possible commands.",
+
+        update.effective_message.reply_photo(
+            HELP_IMG, HELP_MSG,
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            text="Hᴇʟᴘ ❔",
+                            text="Open In Private Chat",
                             url="t.me/{}?start=help".format(context.bot.username),
                         )
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            text="Sᴜᴘᴘᴏʀᴛ Cʜᴀᴛ 📢 ",
-                            url="https://t.me/{}".format(SUPPORT_CHAT),
-                        )
-                    ],
+                    ]
                 ]
             ),
         )
