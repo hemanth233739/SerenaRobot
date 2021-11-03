@@ -1,10 +1,8 @@
 import importlib
 import time
 import re
-import SerenaRobot.modules.sql.users_sql as sql
 from sys import argv
 from typing import Optional
-from pyrogram import filters, idle
 
 from SerenaRobot import (
     ALLOW_EXCL,
@@ -30,8 +28,9 @@ from SerenaRobot import (
 from SerenaRobot.modules import ALL_MODULES
 from SerenaRobot.modules.helper_funcs.chat_status import is_user_admin
 from SerenaRobot.modules.helper_funcs.misc import paginate_modules
-from SerenaRobot.modules.helper_funcs.alternate import typing_action
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
+from SerenaRobot.modules.helper_funcs.alternate import typing_action
+import SerenaRobot.modules.sql.users_sql as sql
 from telegram.error import (
     BadRequest,
     ChatMigrated,
@@ -98,7 +97,7 @@ buttons = [
                             url=f"t.me/SerenaYvonneRobot?startgroup=true")
                     ],
                    [
-                       InlineKeyboardButton(text="[❦ Help ❦]", callback_data="help_back"),
+                       InlineKeyboardButton(text="[❦ Help ❦]",  callback_data="help_back"),
                        InlineKeyboardButton(text="❔ Chit Chat", url="https://t.me/HindiKDrama"),
                        InlineKeyboardButton(text="[❦ Inline ❦]", switch_inline_query_current_chat=""),
                      ],
@@ -121,6 +120,7 @@ HELP_STRINGS = """
    ❦ in PM: will send you your settings for all supported modules.
    ❦ in a group: will redirect you to pm, with all that chat's settings[.](https://telegra.ph/file/a4f4e81304933c9191bc0.jpg)
 """
+
 
 DONATE_STRING = """❦ I'm Free for Everyone ❦"""
 
@@ -224,40 +224,23 @@ def start(update: Update, context: CallbackContext):
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
 
         else:
-            first_name = update.effective_user.first_name
             update.effective_message.reply_text(
-                PM_START_TEXT.format(
-                    escape_markdown(context.bot.first_name),
-                    escape_markdown(first_name),
-                    escape_markdown(uptime),
-                    sql.num_users(),
-                    sql.num_chats()),                        
+                PM_START_TEXT,
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
             )
     else:
-        update.effective_message.reply_animation(
-            SERENA_IMG, caption= "<b>Serena Is Here For You 💖\nHaven't sleep since</b>: <code>{}</code>".format(
+        update.effective_message.reply_photo(
+            SERENA_IMG, caption= "Serena Is Here For You 💖\n<b>Haven't slept since:</b> <code>{}</code>".format(
                 uptime
             ),
             parse_mode=ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            text="🚑 Support",
-                            url=f"https://telegram.dog/{SUPPORT_CHAT}",
-                        ),
-                        InlineKeyboardButton(
-                            text="📢 Updates",
-                            url="https://telegram.dog/PigasusUpdates",
-                        ),
-                    ]
-                ]
+                [[InlineKeyboardButton(text="Sᴜᴘᴘᴏʀᴛ", url="t.me/PigasusSupport")]]
             ),
         )
-      
+        
 def error_handler(update, context):
     """Log the error and send a telegram message to notify the developer."""
     # Log the error before we do anything else, so we can see it even if something breaks.
@@ -330,7 +313,7 @@ def help_button(update, context):
         if mod_match:
             module = mod_match.group(1)
             text = (
-                "「 HELP FOR *{}* 」:\n".format(
+                "Here is the help for the *{}* module:\n".format(
                     HELPABLE[module].__mod_name__
                 )
                 + HELPABLE[module].__help__
@@ -380,24 +363,210 @@ def help_button(update, context):
     except BadRequest:
         pass
 
-@typing_action
-def get_help(update, context):
+
+@run_async
+def serena_about_callback(update, context):
+    query = update.callback_query
+    if query.data == "serena_":
+        query.message.edit_text(
+            text=""" Serena - A bot to manage your groups with additional features!
+            \nHere's the basic help regarding use of Serena.
+            
+            \nAlmost all modules usage defined in the help menu, checkout by sending `/help`
+            \nReport error/bugs click the Button""",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(
+                            text="Bᴜɢ'ꜱ", url="t.me/SiderzChat"
+                        ),
+                        InlineKeyboardButton(
+                            text="Bᴏᴛ Lɪꜱᴛ", url="t.me/SiderzBot/11"
+                        ),
+                    ],
+                    [InlineKeyboardButton(text="Back", callback_data="serena_back")],
+                ]
+            ),
+        )
+    elif query.data == "serena_back":
+        query.message.edit_text(
+                PM_START_TEXT,
+                reply_markup=InlineKeyboardMarkup(buttons),
+                parse_mode=ParseMode.MARKDOWN,
+                timeout=60,
+                disable_web_page_preview=False,
+        )
+
+    elif query.data == "serena_basichelp":
+        query.message.edit_text(
+            text=f"*Here's basic Help regarding* *How to use Me?*"
+            f"\n\n• Firstly Add {dispatcher.bot.first_name} to your group by pressing [here](http://t.me/{dispatcher.bot.username}?startgroup=true)\n"
+            f"\n• After adding promote me manually with full rights for faster experience.\n"
+            f"\n• Than send `/admincache@SerenaYvonneRobot` in that chat to refresh admin list in My database.\n"
+            f"\n\n*All done now use below given button's to know about use!*\n"
+            f"",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                 [
+                    InlineKeyboardButton(text="Aᴅᴍɪɴ", callback_data="serena_admin"),
+                    InlineKeyboardButton(text="Nᴏᴛᴇꜱ", callback_data="serena_notes"),
+                 ],
+                 [
+                    InlineKeyboardButton(text="Sᴜᴘᴘᴏʀᴛ", callback_data="serena_support"),
+                    InlineKeyboardButton(text="Cʀᴇᴅɪᴛ", callback_data="serena_credit"),
+                 ],
+                 [
+                    InlineKeyboardButton(text="Back", callback_data="serena_back"),
+                 
+                 ]
+                ]
+            ),
+        )
+    elif query.data == "serena_admin":
+        query.message.edit_text(
+            text=f"*Let's make your group bit effective now*"
+            f"\nCongragulations, Serena now ready to manage your group."
+            f"\n\n*Admin Tools*"
+            f"\nBasic Admin tools help you to protect and powerup your group."
+            f"\nYou can ban members, Kick members, Promote someone as admin through commands of bot."
+            f"\n\n*Welcome*"
+            f"\nLets set a welcome message to welcome new users coming to your group."
+            f"send `/setwelcome [message]` to set a welcome message!",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="Back", callback_data="serena_basichelp")]]
+            ),
+        )
+
+    elif query.data == "serena_notes":
+        query.message.edit_text(
+            text=f"<b> Setting up notes</b>"
+            f"\nYou can save message/media/audio or anything as notes"
+            f"\nto get a note simply use # at the beginning of a word"
+            f"\n\nYou can also set buttons for notes and filters (refer help menu)",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="Back", callback_data="serena_basichelp")]]
+            ),
+        )
+    elif query.data == "serena_support":
+        query.message.edit_text(
+            text="* Serena support chats*"
+            "\nJoin Support Group/Channel",
+            parse_mode=ParseMode.MARKDOWN,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                 [
+                    InlineKeyboardButton(text="Lᴏɢ'ꜱ", url="t.me/PigasusLogs"),
+                    InlineKeyboardButton(text="Fᴇᴅ", url="t.me/SiderzFedChat"),
+                 ],
+                 [
+                    InlineKeyboardButton(text="Sᴜᴘᴘᴏʀᴛ", url="t.me/SiderzChat"),
+                    InlineKeyboardButton(text="Uᴘᴅᴀᴛᴇꜱ", url="https://t.me/SiderzBot"),
+                 ],
+                 [
+                    InlineKeyboardButton(text="Back", callback_data="serena_basichelp"),
+                 
+                 ]
+                ]
+            ),
+        )
+    elif query.data == "serena_credit":
+        query.message.edit_text(
+            text=f"<b> CREDIT FOR SERENA DEV'S</b>\n"
+            f"\nHere Some Developers Helping in Making The Serena Bot",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                 [
+                    InlineKeyboardButton(text="Sᴀᴍᴍʏ", url="t.me/useIes"),
+                    InlineKeyboardButton(text="Bʟᴀᴢᴇ", url="t.me/piroXpower"),
+                 ],
+                 [
+                    InlineKeyboardButton(text="Iɴꜰɪɴɪᴛʏ", url="t.me/hell_king_infinity"),
+                    InlineKeyboardButton(text="Zᴀʟɪᴍ", url="https://t.me/Jalim_Munda"),
+                 ],
+                 [
+                    InlineKeyboardButton(text="Back", callback_data="serena_basichelp"),
+                 
+                 ]
+                ]
+            ),
+        )
+        
+        
+@run_async
+def Source_about_callback(update, context):
+    query = update.callback_query
+    if query.data == "source_":
+        query.message.edit_text(
+            text=""" Hi..💖 I'm *Serena*
+                 \nHere is the [🔥Source Code🔥](https://github.com/AASFCYBERKING/SerenaRobot) .""",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                 [
+                    InlineKeyboardButton(text="Go Back", callback_data="source_back")
+                 ]
+                ]
+            ),
+        )
+    elif query.data == "source_back":
+        query.message.edit_text(
+                PM_START_TEXT,
+                reply_markup=InlineKeyboardMarkup(buttons),
+                parse_mode=ParseMode.MARKDOWN,
+                timeout=60,
+                disable_web_page_preview=False,
+        )
+
+@run_async
+def get_help(update: Update, context: CallbackContext):
     chat = update.effective_chat  # type: Optional[Chat]
     args = update.effective_message.text.split(None, 1)
 
     # ONLY send help in PM
     if chat.type != chat.PRIVATE:
-
-        update.effective_message.reply_photo(
-            HELP_IMG, HELP_MSG,
+        if len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
+            module = args[1].lower()
+            update.effective_message.reply_text(
+                f"Contact me in PM to get help of {module.capitalize()}",
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(
+                                text="Help",
+                                url="t.me/{}?start=ghelp_{}".format(
+                                    context.bot.username, module
+                                ),
+                            )
+                        ]
+                    ]
+                ),
+            )
+            return
+        update.effective_message.reply_text(
+            "Contact me in PM to get the list of possible commands.",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            text="Open In Private Chat",
+                            text="Hᴇʟᴘ ❔",
                             url="t.me/{}?start=help".format(context.bot.username),
                         )
-                    ]
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            text="Sᴜᴘᴘᴏʀᴛ Cʜᴀᴛ 📢 ",
+                            url="https://t.me/{}".format(SUPPORT_CHAT),
+                        )
+                    ],
                 ]
             ),
         )
@@ -406,7 +575,7 @@ def get_help(update, context):
     elif len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
         module = args[1].lower()
         text = (
-            "「 HELP FOR *{}* 」:\n".format(
+            "Here is the available help for the *{}* module:\n".format(
                 HELPABLE[module].__mod_name__
             )
             + HELPABLE[module].__help__
@@ -590,7 +759,7 @@ def donate(update: Update, context: CallbackContext):
             DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
         )
 
-        if OWNER_ID != 2022280326 and DONATION_LINK:
+        if OWNER_ID != 1947924017 and DONATION_LINK:
             update.effective_message.reply_text(
                 "You can also donate to the person currently running me "
                 "[here]({})".format(DONATION_LINK),
@@ -641,7 +810,7 @@ def main():
             dispatcher.bot.sendMessage(f"@{SUPPORT_CHAT}", "I Aᴍ Aʟɪᴠᴇ 🔥")
         except Unauthorized:
             LOGGER.warning(
-                "Bot isnt able to send message to @pigasusSupport, go and check!"
+                "Bot isnt able to send message to support_chat, go and check!"
             )
         except BadRequest as e:
             LOGGER.warning(e.message)
@@ -655,12 +824,17 @@ def main():
     settings_handler = CommandHandler("settings", get_settings)
     settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_")
 
+    about_callback_handler = CallbackQueryHandler(serena_about_callback, pattern=r"serena_")
+    source_callback_handler = CallbackQueryHandler(Source_about_callback, pattern=r"source_")
+
     donate_handler = CommandHandler("donate", donate)
     migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats)
 
     # dispatcher.add_handler(test_handler)
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(help_handler)
+    dispatcher.add_handler(about_callback_handler)
+    dispatcher.add_handler(source_callback_handler)
     dispatcher.add_handler(settings_handler)
     dispatcher.add_handler(help_callback_handler)
     dispatcher.add_handler(settings_callback_handler)
