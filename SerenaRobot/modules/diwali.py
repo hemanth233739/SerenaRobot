@@ -2,11 +2,10 @@
 # Don't remove these lines else gay..
 # Kang with credits..
 
-
+from SerenaRobot.events import register
 import asyncio
-from SerenaRobot import telethn as borg
 
-@borg.on("hdd"))
+@register(pattern=("/diwali"))
 async def _(event):
     if event.fwd_from:
         return
