@@ -1264,7 +1264,7 @@ async def _(event):
         await event.edit(animation_chars[i % 6])
 
 
-@borg.on(admin_cmd("diwali"))
+@register(pattern=("/hdiwali"))
 async def _(event):
     if event.fwd_from:
         return
@@ -1285,13 +1285,13 @@ async def _(event):
         await event.edit(animation_chars[i % 20])
 
 
-@borg.on(admin_cmd("dosto"))
+@register(pattern=("/bdiwali"))
 async def _(event):
     if event.fwd_from:
         return
     animation_interval = 1
     animation_ttl = range(0, 22)
-    await event.edit("❤Dosto❤")
+    await event.edit("💖Friends💖")
     animation_chars = [
         """💜💜                        💜💜
 💜💜                        💜💜
