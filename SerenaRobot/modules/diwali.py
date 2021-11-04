@@ -4,18 +4,15 @@
 
 
 import asyncio
+from SerenaRobot import telethn as borg
 
-from userbot import CMD_HELP
-from userbot.utils import admin_cmd
-
-
-@borg.on(admin_cmd("hdd"))
+@borg.on("hdd"))
 async def _(event):
     if event.fwd_from:
         return
     animation_interval = 1.5
     animation_ttl = range(0, 10)
-    await event.edit("Happy Diwali Dosto🤗")
+    await event.edit("Happy Diwali All💖")
     animation_chars = [
         """-----💜happy💜diwali💜
 ----💜happy💜diwali💜
@@ -1417,16 +1414,3 @@ async def _(event):
 
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 22])
-
-
-CMD_HELP.update(
-    {
-        "diwali": "__**PLUGIN NAME :** Diwali__\
-    \n\n📌** CMD ★** `.hdd`\
-    \n**USAGE   ★  **long diwali animation \
-    \n\n📌** CMD ★** `.diwali`\
-    \n**USAGE   ★  **Cute diwali light animation\
-    \n\n📌** CMD ★** `.dosto`\
-    \n**USAGE   ★  **diwali letter emoji animation"
-    }
-)
