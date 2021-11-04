@@ -4,62 +4,61 @@ import asyncio
 import os
 import requests
 import datetime
-import html
 import time
 from PIL import Image
 from io import BytesIO
 from datetime import datetime
 import random
 from telethon import events, version
-from Sophia.events import register
-from Sophia import telethn as borg
-from Sophia import StartTime, dispatcher
+from SerenaRobot.events import register
+from SerenaRobot import telethn as borg
+from SerenaRobot import StartTime, dispatcher
 from telethon.tl.types import ChannelParticipantsAdmins
-from telegram.utils.helpers import escape_markdown, mention_html
 
 edit_time = 5
-""" =======================CONSTANTS====================== """
-diwali1 = "https://telegra.ph/file/cf73748c573be66cb2b56.jpg"
-diwali2 = "https://telegra.ph/file/a1c250048ef1fe7a3921c.jpg"
-diwali3 = "https://telegra.ph/file/4ee14dca0bb7270d2e9a6.jpg"
-diwali4 = "https://telegra.ph/file/359c8e1592cd643574f3b.jpg"
-""" =======================CONSTANTS====================== """
+""" =======================DIWALI====================== """
+diwali1 = "https://telegra.ph/file/2fac8d8519f73aec8fda8.jpg"
+diwali2 = "https://telegra.ph/file/a4f0842dc0fcb2b391679.jpg"
+diwali3 = "https://telegra.ph/file/a8449329aebf8e430111c.jpg"
+diwali4 = "https://telegra.ph/file/6aec7a7f258df61f8ffc4.jpg"
+diwali5 = "https://telegra.ph/file/c0c9dcf95a51fc5c0ccf5.jpg"
+""" =======================DIWALI====================== """
 
 @register(pattern=("/diwali"))
-async def hmm(yes, context: CallbackContext):
-    bot, args = context.bot, context.args
-    chat = await yes.get_chat()
-    await yes.delete()
-    user = bot.get_chat(user_id)
-    user_id = extract_user(msg, args)
-    pm_caption = "** Happy Diwali From {html.escape(user.first_name)} **\n\n"
+async def hmm(event):
+    chat = await event.get_chat()
+    await event.delete()
+    pm_caption = f"**Happy Diwali From {(event.sender.first_name)} **\n\n"
     pm_caption += "**By Pigasus X Team**\n\n"
-    on = await borg.send_file(yes.chat_id, file=file1,caption=pm_caption)
+    on = await borg.send_file(event.chat_id, file=diwali1,caption=pm_caption)
 
     await asyncio.sleep(edit_time)
-    ok = await borg.edit_message(yes.chat_id, on, file=diwali2) 
+    ok = await borg.edit_message(event.chat_id, on, file=diwali2) 
 
     await asyncio.sleep(edit_time)
-    ok2 = await borg.edit_message(yes.chat_id, ok, file=diwali3)
+    ok2 = await borg.edit_message(event.chat_id, ok, file=diwali3)
 
     await asyncio.sleep(edit_time)
-    ok3 = await borg.edit_message(yes.chat_id, ok2, file=diwali1)
+    ok3 = await borg.edit_message(event.chat_id, ok2, file=diwali4)
     
     await asyncio.sleep(edit_time)
-    ok4 = await borg.edit_message(yes.chat_id, ok3, file=diwali3)
+    ok4 = await borg.edit_message(event.chat_id, ok3, file=diwali1)
     
     await asyncio.sleep(edit_time)
-    ok5 = await borg.edit_message(yes.chat_id, ok4, file=diwali2)
+    ok5 = await borg.edit_message(event.chat_id, ok4, file=diwali2)
     
     await asyncio.sleep(edit_time)
-    ok6 = await borg.edit_message(yes.chat_id, ok5, file=diwali1)
+    ok6 = await borg.edit_message(event.chat_id, ok5, file=diwali3)
     
     await asyncio.sleep(edit_time)
-    ok7 = await borg.edit_message(yes.chat_id, ok6, file=diwali4)
+    ok7 = await borg.edit_message(event.chat_id, ok6, file=diwali4)
+    
+    await asyncio.sleep(edit_time)
+    ok8 = await borg.edit_message(event.chat_id, ok7, file=diwali5)
 
-__mod_name__ = "ALIVE💖"
+__mod_name__ = "FESTIVAL🎆"
 
 __help__ = """
- ~ /alive *:* Get A Alive Message Like Userbot. 
-Credits @AASFCYBERKING
+ ~ /diwali *:* Tell Happy Diwali To Your Friends. 
 """
+    
