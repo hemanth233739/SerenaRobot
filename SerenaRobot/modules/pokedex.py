@@ -1,5 +1,6 @@
 # Pokedex Module Credits Pranav Ajay 🐰Github = Red-Aura 🐹 Telegram= @madepranav
 
+import requests
 import aiohttp
 from pyrogram import filters
 from SerenaRobot import pbot as asuna
