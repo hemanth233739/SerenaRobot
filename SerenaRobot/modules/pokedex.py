@@ -42,3 +42,22 @@ async def PokeDex(_, message):
                 print(str(e))
                 pass
     await message.reply_photo(photo=poke_img, caption=caption)
+
+@asuna.on_message(filters.command('pokecard'))
+async def pokecard(event):
+    pokename = event.pattern_match.group(1)
+    if not pokename:
+        await eor(event, "`Give A Pokemon name`")
+        return
+    rw = f"https://api.pokemontcg.io/v1/cards?name={pokename}"
+    r = requests.get(rw)
+    a = r.json()
+    try:
+        o = a["cards"][0]["imageUrlHiRes"]
+        await event.client.send_file(
+            await event.client.get_input_entity(event.chat_id), o
+        )
+        await event.delete()
+    except BaseException:
+        await eor(event, "`Be sure To give correct Name`")
+        return
