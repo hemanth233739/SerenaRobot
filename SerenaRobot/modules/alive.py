@@ -56,9 +56,10 @@ async def hmm(yes):
     current_time = datetime.utcnow()
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = await _human_time_duration(int(uptime_sec))
-    pm_caption = f"** ♡ I,m Serena Yvonne  **"
-    pm_caption = f"** My Uptime : {uptime}  **"
-    pm_caption = f"** ♡ Telethon Version : 1.23.0  **"
+    pm_caption = f"** ♡ I,m Serena Yvonne  **\n"
+    pm_caption = f"** ♡ My Uptime : {uptime}  **\n"
+    pm_caption = f"** ♡ Telethon Version : `{version.__version__}` **\n"
+    pm_caption = f"** ♡ My Master : [AASFCYBERKING](https://t.me/AASFCYBERKING) **\n"
     BUTTON = [[Button.url("Support", "https://t.me/PegasusSupportOfficial"), Button.url("Updates", "https://t.me/PegasusUpdates")]]
     on = await borg.send_file(yes.chat_id, file=file1,caption=pm_caption, buttons=BUTTON)
     
