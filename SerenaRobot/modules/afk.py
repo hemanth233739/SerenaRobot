@@ -40,6 +40,7 @@ def afk(update, context):
             "{} is now Away!".format(fname))
     except BadRequest:
         pass
+
 @run_async
 def no_longer_afk(update, context):
     user = update.effective_user
