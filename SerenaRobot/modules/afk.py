@@ -21,7 +21,7 @@ from SerenaRobot.modules.helper_funcs.readable_time import get_readable_time
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
 
-
+@run_async
 def afk(update, context):
     args = update.effective_message.text.split(None, 1)
     user = update.effective_user
@@ -40,7 +40,7 @@ def afk(update, context):
             "{} is now Away!".format(fname))
     except BadRequest:
         pass
-
+@run_async
 def no_longer_afk(update, context):
     user = update.effective_user
     message = update.effective_message
@@ -79,7 +79,7 @@ def no_longer_afk(update, context):
             
 
 
-
+@run_async
 def reply_afk(update, context):
     message = update.effective_message
     userc = update.effective_user
@@ -128,7 +128,7 @@ def reply_afk(update, context):
         fst_name = message.reply_to_message.from_user.first_name
         check_afk(update, context, user_id, fst_name, userc_id)
 
-
+@run_async
 def check_afk(update, context, user_id, fst_name, userc_id):
     if is_user_afk(user_id):
         reason = afk_reason(user_id)
@@ -141,8 +141,6 @@ def check_afk(update, context, user_id, fst_name, userc_id):
             res = "{} is afk!\nReason: {}\nLast seen: {} Ago.".format(fst_name, reason, since_afk)
 
         update.effective_message.reply_text(res)
-
-
 def __user_info__(user_id):
     is_afk = is_user_afk(user_id)
     text = ""
@@ -162,10 +160,10 @@ def __gdpr__(user_id):
     end_afk(user_id)
 
 
-AFK_HANDLER = DisableAbleCommandHandler("afk", afk, run_async=True)
+AFK_HANDLER = DisableAbleCommandHandler("afk", afk)
 AFK_REGEX_HANDLER = MessageHandler(Filters.regex("(?i)brb"), afk)
-NO_AFK_HANDLER = MessageHandler(Filters.all & Filters.chat_type.groups, no_longer_afk, run_async=True)
-AFK_REPLY_HANDLER = MessageHandler(Filters.all & Filters.chat_type.groups, reply_afk, run_async=True)
+NO_AFK_HANDLER = MessageHandler(Filters.all & Filters.chat_type.groups, no_longer_afk)
+AFK_REPLY_HANDLER = MessageHandler(Filters.all & Filters.chat_type.groups, reply_afk)
 
 dispatcher.add_handler(AFK_HANDLER, AFK_GROUP)
 dispatcher.add_handler(AFK_REGEX_HANDLER, AFK_GROUP)
