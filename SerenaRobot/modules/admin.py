@@ -12,9 +12,9 @@ from telethon.errors import *
 from telethon.tl import *
 from telethon import *
 
-from GilbertAnimeBot import DRAGONS, dispatcher, telethn as bot
-from GilbertAnimeBot.modules.disable import DisableAbleCommandHandler
-from GilbertAnimeBot.modules.helper_funcs.chat_status import (
+from SerenaRobot import DRAGONS, dispatcher, telethn as bot
+from SerenaRobot.modules.disable import DisableAbleCommandHandler
+from SerenaRobot.modules.helper_funcs.chat_status import (
     bot_admin,
     can_pin,
     can_promote,
@@ -26,12 +26,12 @@ from GilbertAnimeBot.modules.helper_funcs.chat_status import (
     ADMIN_CACHE,
 )
 
-from GilbertAnimeBot.modules.helper_funcs.extraction import (
+from SerenaRobot.modules.helper_funcs.extraction import (
     extract_user,
     extract_user_and_text,
 )
-from GilbertAnimeBot.modules.log_channel import loggable
-from GilbertAnimeBot.modules.helper_funcs.alternate import send_message
+from SerenaRobot.modules.log_channel import loggable
+from SerenaRobot.modules.helper_funcs.alternate import send_message
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
