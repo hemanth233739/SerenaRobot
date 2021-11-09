@@ -128,7 +128,6 @@ def reply_afk(update, context):
         fst_name = message.reply_to_message.from_user.first_name
         check_afk(update, context, user_id, fst_name, userc_id)
 
-@run_async
 def check_afk(update, context, user_id, fst_name, userc_id):
     if is_user_afk(user_id):
         reason = afk_reason(user_id)
