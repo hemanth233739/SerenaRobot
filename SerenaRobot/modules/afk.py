@@ -140,6 +140,7 @@ def check_afk(update, context, user_id, fst_name, userc_id):
             res = "{} is afk!\nReason: {}\nLast seen: {} Ago.".format(fst_name, reason, since_afk)
 
         update.effective_message.reply_text(res)
+
 def __user_info__(user_id):
     is_afk = is_user_afk(user_id)
     text = ""
