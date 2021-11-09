@@ -45,6 +45,7 @@ validators
 nekos.py
 aiofiles
 pyrate-limiter
+humanize
 cachetools
 ujson
 pretty_errors
