@@ -37,17 +37,6 @@ async def get_user(event):
 @register(pattern=("/get_id"))
 async def image_maker(event) -> None:
     replied_user = await event.get_reply_message()
-    # Download profile photo
-    await System.download_profile_photo(
-        replied_user.sender_id, file="user.png", download_big=True
-    )
-    user_photo = Image.open("user.png")
-    # open id photo
-    id_template = Image.open("XMAS.jpg")
-    # resize user photo to fit box in id template
-    user_photo = user_photo.resize((1159, 1241))
-    # put image in position
-    id_template.paste(user_photo, (1003, 641))
     # postion on where to draw text
     draw = ImageDraw.Draw(id_template)
     color = "rgb(0, 0, 0)"  # black
