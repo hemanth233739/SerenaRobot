@@ -11,7 +11,7 @@ async def get_user(event):
     else:
         user = event.pattern_match.group(1)
 
-        if useir.isnumeric():
+        if user.isnumeric():
             user = int(user)
 
         if not user:
@@ -37,9 +37,17 @@ async def get_user(event):
 @register(pattern=("/get_id"))
 async def image_maker(event) -> None:
     replied_user = await event.get_reply_message()
+    # Download profile photo
+    await System.download_profile_photo(
+        replied_user.sender_id, file="user.png", download_big=True
+    )
+    user_photo = Image.open("user.png")
     # open id photo
-    id_template = Image.open("XMAS.jpg")
+    id_template = Image.open("XMAS.png")
     # resize user photo to fit box in id template
+    user_photo = user_photo.resize((1159, 1241))
+    # put image in position
+    id_template.paste(user_photo, (1003, 641))
     # postion on where to draw text
     draw = ImageDraw.Draw(id_template)
     color = "rgb(0, 0, 0)"  # black
@@ -53,17 +61,17 @@ async def image_maker(event) -> None:
         font=font2,
     )
     draw.text((393, 50), str(replied_user.sender_id), fill=color, font=font)
-    id_template.save("xmas.png")
+    id_template.save("user_id.png")
     if "doc" in event.text:
         force_document = True
     else:
         force_document = False
     await System.send_message(
         event.chat_id,
-        "Merry Christmas ☃️🌲",
+        "Generated User ID",
         reply_to=event.message.id,
-        file="xmas.png",
+        file="user_id.png",
         force_document=force_document,
         silent=True,
     )
-    os.remove("xmas.png")
+    os.remove("user_id.png")
