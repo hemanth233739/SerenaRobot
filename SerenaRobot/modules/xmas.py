@@ -11,7 +11,7 @@ async def get_user(event):
     else:
         user = event.pattern_match.group(1)
 
-        if user.isnumeric():
+        if useir.isnumeric():
             user = int(user)
 
         if not user:
@@ -62,7 +62,7 @@ async def image_maker(event) -> None:
         event.chat_id,
         "Merry Christmas ☃️🌲",
         reply_to=event.message.id,
-        file="user_id.png",
+        file="xmas.png",
         force_document=force_document,
         silent=True,
     )
