@@ -103,11 +103,11 @@ buttons = [
                      ],
                     [                  
                        InlineKeyboardButton(
-                             text="🎉 Support",
-                             url="https://t.me/PigasusSupport"),
+                             text="⛄ Support",
+                             url="https://t.me/CrowdStrikeChat"),
                        InlineKeyboardButton(
-                             text="📢 Updates",
-                             url="https://t.me/PigasusUpdates")
+                             text="🎄 Updates",
+                             url="https://t.me/CrowdXStrike")
                      ], 
     ]
 
@@ -122,7 +122,7 @@ HELP_STRINGS = """
 """
 
 
-DONATE_STRING = """❦ I'm Free for Everyone ❦"""
+DONATE_STRING = """⛄🎄 Say Merry Christmas To Your Friends And Family ⛄🎄"""
 
 IMPORTED = {}
 MIGRATEABLE = []
