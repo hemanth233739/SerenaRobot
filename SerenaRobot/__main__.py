@@ -80,7 +80,7 @@ SERENA_IMG = "https://telegra.ph/file/e2f6fd79f0cbd36c83a18.jpg"
 HELP_IMG = "https://telegra.ph/file/46fac05bf4e7bb20053e6.jpg"
 
 PM_START_TEXT = """
-────「 [{}](https://telegra.ph/file/589306be78e284fc0a5e6.jpg) 」────
+────「 [{}](https://telegra.ph/file/15b2a86d231544b826d00.jpg) 」────
 *Hola! {},*
 *I am a Pokégirl themed advance group management bot with a lot of New And Powerful Features.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
@@ -118,7 +118,7 @@ HELP_STRINGS = """
  ➛ /donate: information on how to donate!
  ➛ /settings:
    ❦ in PM: will send you your settings for all supported modules.
-   ❦ in a group: will redirect you to pm, with all that chat's settings[.](https://telegra.ph/file/a4f4e81304933c9191bc0.jpg)
+   ❦ in a group: will redirect you to pm, with all that chat's settings[.](https://telegra.ph/file/22c75ab7ab3d24bef895a.jpg)
 """
 
 
