@@ -13,7 +13,7 @@ from SerenaRobot.modules.helper_funcs.chat_status import (is_user_admin)
 from SerenaRobot.modules.helper_funcs.extraction import extract_user
 
 @run_async
-def serenawall(update: Update, context: CallbackContext):
+def wall(update: Update, context: CallbackContext):
     message = update.effective_message
     name = message.reply_to_message.from_user.first_name if message.reply_to_message else message.from_user.first_name
     reply_photo = message.reply_to_message.reply_photo if message.reply_to_message else message.reply_photo
