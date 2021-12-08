@@ -81,7 +81,7 @@ HELP_IMG = "https://telegra.ph/file/46fac05bf4e7bb20053e6.jpg"
 
 PM_START_TEXT = """
 ────「 [{}](https://telegra.ph/file/15b2a86d231544b826d00.jpg) 」────
-*Hola! {},*
+*Merry Christmas! {},*
 *I am a Pokégirl themed advance group management bot with a lot of New And Powerful Features.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 • *Uptime:* `{}`
