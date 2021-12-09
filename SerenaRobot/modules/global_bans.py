@@ -119,10 +119,6 @@ def gban(update: Update, context: CallbackContext):
         message.reply_text("You uhh...want me to punch myself?")
         return
 
-    if user_id in [777000, 1087968824]:
-        message.reply_text("Fool! You can't attack Telegram's native tech!")
-        return
-
     try:
         user_chat = bot.get_chat(user_id)
     except BadRequest as excp:
@@ -512,8 +508,6 @@ def __stats__():
 def __user_info__(user_id):
     is_gbanned = sql.is_user_gbanned(user_id)
     text = "Malicious: <b>{}</b>"
-    if user_id in [777000, 1087968824]:
-        return ""
     if user_id == dispatcher.bot.id:
         return ""
     if int(user_id) in DRAGONS + TIGERS + WOLVES:
