@@ -22,11 +22,16 @@ class Config(object):
     NO_LOAD = ["rss", "cleaner", "connection", "math"]
     WEBHOOK = False
     INFOPIC = True
+    ENV = ANYTHING
+    BOT_ID = 1931887848
+    DATABASE_URL = postgres://xfbrdtli:k186fYZpU6t-KvXeV_Xyd0lWefV1JreE@fanny.db.elephantsql.com/xfbrdtli
     URL = None
     SPAMWATCH_API = ""  # go to support.spamwat.ch to get key
     SPAMWATCH_SUPPORT_CHAT = "SpamWatchSupport"
-
-    # OPTIONAL
+    REDIS_URL = "redis://Zaidrobot:Anmol@123@redis-12356.c284.us-east1-2.gce.cloud.redislabs.com:12356/Zaidrobot"
+    MONGO_DB_URI = "mongodb+srv://xforce:xforce@cluster0.2glge.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    HEROKU_API_KEY = "a7bdab79-e4f1-41b8-9dc4-c143aa5cdcc6"
+    # OPTIONAL 
     ##List of id's -  (not usernames) for users which have sudo access to the bot.
     DRAGONS = get_user_list("elevated_users.json", "sudos")
     ##List of id's - (not usernames) for developers who will have the same perms as the owner
