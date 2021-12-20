@@ -24,6 +24,10 @@ The easiest way to deploy this Bot
 <p align="center"><a href="https://heroku.com/deploy?template=https://github.com/AASFCYBERKING/SerenaRobot"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-black?style=for-the-badge&logo=heroku" width="220" height="38.45"/></a></p>
 
 
+# Railway Deploy
+[![Deploy To Railway](https://railway.app/button.svg)](https://railway.app)
+
+
 # 👨‍💻 Support
 <a href="https://t.me/PigasusSupport"><img src="https://img.shields.io/badge/Join-Telegram%20Channel-blue.svg?logo=Telegram"></a>
 <a href="https://t.me/AASFCYBERKING"><img src="https://img.shields.io/badge/Owner-Telegram%20Group-blue.svg?logo=telegram"></a>
