@@ -29,7 +29,7 @@ class Config(object):
     # RECOMMENDED
     SQLALCHEMY_DATABASE_URI = "something://somewhat:user@hosturl:port/databasename"  # needed for any database modules
     LOAD = []
-    NO_LOAD = ["rss", "cleaner", "connection", "math"]
+    NO_LOAD = ["rss"]
     WEBHOOK = False
     INFOPIC = True
     ENV = ANYTHING
