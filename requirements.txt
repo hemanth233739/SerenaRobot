@@ -52,9 +52,6 @@ pretty_errors
 TgCrypto
 python-arq==6.0.3
 Pyrogram
-youtube-dl
-youtube_search_python
-youtube_search
 asyncio
 dateparser==1.0.0
 pymongo
