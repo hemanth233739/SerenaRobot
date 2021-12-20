@@ -34,7 +34,7 @@ class Config(object):
     INFOPIC = True
     ENV = ANYTHING
     BOT_ID = 1931887848
-    DATABASE_URL = postgres://xfbrdtli:k186fYZpU6t-KvXeV_Xyd0lWefV1JreE@fanny.db.elephantsql.com/xfbrdtli
+    DATABASE_URL = "postgres://xfbrdtli:k186fYZpU6t-KvXeV_Xyd0lWefV1JreE@fanny.db.elephantsql.com/xfbrdtli"
     URL = None
     SPAMWATCH_API = ""  # go to support.spamwat.ch to get key
     SPAMWATCH_SUPPORT_CHAT = "SpamWatchSupport"
