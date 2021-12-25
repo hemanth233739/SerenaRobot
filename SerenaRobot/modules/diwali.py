@@ -60,5 +60,6 @@ __mod_name__ = "FESTIVAL🎆"
 
 __help__ = """
  ~ /diwali *:* Tell Happy Diwali To Your Friends. 
+ ~ /xmas *:* Tell Merry Christmas To Your Friends.
 """
     
